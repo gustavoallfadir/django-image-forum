@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="title">
+    <h2>Thread: {{parent.title}}</h2>
+    <p>{{parent.reply_count}}, {{parent.total_messages}}</p>
+</div>
+
+<div class="cat-container">
+    <h3>Categories:</h3>
+    <ul>
+        {% for cat in categories %}
+        <li>
+            <a href="{% url 'category' cat.name %}">{{cat.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="post-list">
+    <div class="post-box">
+        <h3>{{parent.title}}</h3>
+        <p>Author: {{parent.author}} on {{parent.created}}</p>
+        <p>{{parent.content}}</p>
+        {% if parent.img %}
+        <a href="{% url 'full size img' obj='post' pk=parent.pk %}">
+            <img class="pic" src="{{parent.img.url}}" alt="">
+        </a>
+        {% endif %}
+        <div class="button-panel">
+            <span>Category: <a class="cat" href="{% url 'category' parent.category.name %}">{{parent.category}}</a></span> 
+            <a class="button" href="{% url 'reply' parent.pk %}">Reply</a>
+            {% if parent.is_flagged %}
+                <p class="button" id="red-button">Flagged</p>
+            {% else %}
+                <a class="button" id="red-button" href="{% url 'flag post' obj='post' pk=parent.pk origin=request.get_full_path %}"">Flag this</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% for post in replies %}
+        <div class="post-box">
+            <h3>{{post.author}} replied:</h3>
+            <p>{{post.created}}</p>
+            <p>{{post.content}}</p>
+            
+            {% if post.img %}
+            <a href="{% url 'full size img' obj='post' pk=post.pk %}">
+                <img class="pic" src="{{post.img.url}}" alt="">
+            </a>
+            {% endif %}
+
+            <div class="button-panel">
+                <a href="{% url 'reply to reply' post.pk %}" class="button">Reply</a>
+            {% if post.is_flagged %}
+                <p class="button" id="red-button">Flagged</p>
+            {% else %}
+                <a class="button" id="red-button" href="{% url 'flag post' obj='reply' pk=post.pk origin=request.get_full_path %}"">Flag this</a>
+            {% endif %}
+            </div>
+            
+            {% if post.get_replies %}
+                <ul class="replies">
+                        {% for reply in post.get_replies %}
+                        <li>
+                            <h3>{{reply.author}}:</h3>
+                            <p>{{reply.created}}</p>
+                            <p>{{reply.content}}</p>
+                        </li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+        </div>   
+        
+    {% empty %}
+        <div class="post-box">
+            <h4 style="text-align: center;">No replies on this thread.</h4>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

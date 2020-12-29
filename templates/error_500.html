@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Server error
+{% endblock %}
+
+{% block content %}
+<div class="wide-container">
+    <div class="error">
+        <h2>500 Server error</h2>
+        <p>There's a problem with our server, we'll try to fix it ASP.
+         Thanks for your patience.</p>
+         
+        {%load static %}
+        <img class="error-img" src="{% static 'media/error500.png' %}" alt="">
+    </div>
+</div>
+
+{% endblock %}

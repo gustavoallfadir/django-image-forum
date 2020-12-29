@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS Styles-->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!--Scripts-->
+    <script src="{% static 'js/script.js' %}"></script>
+    <title>
+        {% block title %}
+        Login
+        {% endblock %}
+    </title>
+</head>
+
+<header>
+    <h1>{% block h1 %} 
+        {% endblock %}
+    </h1>
+        <nav>
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li>
+                <a onclick="window.history.go(-1)" style="cursor: pointer;">Go back</a>
+            </li>
+        </nav>
+</header>
+
+<body>
+    {% block form %}
+
+    {% endblock %}
+</body>

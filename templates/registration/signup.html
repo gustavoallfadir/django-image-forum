@@ -1,0 +1,25 @@
+{% extends 'formbase.html' %}
+
+{% block title %}
+User registration
+{% endblock %}
+
+{% block h1 %}
+Sign Up
+{% endblock %}
+
+{% block form %}
+    
+    <div class="form">
+        <form action="" method="POST">{% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <button class="button" type="submit">Submit</button>
+        </form>
+        <br>
+        <p>Already have an account? <a class="signup-button" href="{% url 'login' %}">Login</a></p>
+    </div>
+    
+{% endblock %}
+

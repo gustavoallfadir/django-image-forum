@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My profile
+{% endblock %}
+
+
+{% block content %}
+
+<div class="wide-container">
+    <h2>My profile</h2>
+    <h3>Username: {{user}}</h3>
+    <br>
+    <div class="profile-data">
+        <h4>Overview:</h4>
+        <p>Joined on {{user.date_joined}}</p>
+        <p>Favorite category: {{user_method.fav_cat}}</p>
+        <br>
+        <h4>Activity this month</h4>
+        <p>Threads: {{user_method.month_threads}}</p>
+        <p>Replies: {{user_method.month_messages}} </p>
+        <br>
+        <h4>All activity</h4>
+        <p>Threads: {{user_method.total_posts}}</p>
+        <p>Flagged threads: {{user_method.total_flagged_threads}}</p>
+        <p>Total replies: {{user_method.total_replies}}</p>
+        <p>All activity: {{user_method.total_messages}}</p>
+    </div>
+
+    <div class="button-panel">
+        <h3>Account actions:</h3>
+    <!--
+        <a href="" class="button">Edit profile</a>
+    -->    
+        <a href="{% url 'password_change' %}" class="button">Change my password</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+ {% block title %}
+ Rules 
+ {% endblock %}
+
+ {% block content %}
+
+<div class="wide-container">
+    <h2>Forum rules:</h2>
+     <ol>
+         {% for rule in rules %}
+         <li>{{rule.statement}}</li>
+         {% empty %}
+           <p>Oops, we haven't stablished any rules yet!</p>
+         {% endfor %}
+     </ol>
+ </div>
+ {% endblock %}

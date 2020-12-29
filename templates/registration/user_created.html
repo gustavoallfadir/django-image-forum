@@ -1,0 +1,23 @@
+{% extends 'formbase.html' %}
+
+{% block title %}
+User was created
+{% endblock %}
+
+{% block h1 %}
+<h1>User created succesfully</h1> 
+{% endblock %}
+
+{% block form %}
+    <div class="form">
+        <h3>Login now</h3>
+        <form action="" method="POST">{% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <button class="button" type="submit">Submit</button>
+        </form>
+    
+    </div>
+
+{% endblock %}

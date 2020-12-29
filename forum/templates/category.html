@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{cat.0.name}}
+{% endblock %}
+
+{% block content %}
+
+<div class="title">
+    <h2>Category: {{cat.name}}</h2>
+</div>
+
+<div class="cat-container">
+    <h3>Categories:</h3>
+    <ul>
+        {% for cat in categories %}
+        <li>
+            <a href="{% url 'category' cat.name %}">{{cat.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div class="post-list">
+
+    {% for post in posts %}
+        <div class="post-box">
+            <h4>{{post.title}}</h4>
+            <p>Author: {{post.author}} on {{post.created}}</p>
+            <p>{{post.content}}</p>
+            
+            {% if post.img %}
+            <a href="{% url 'full size img' obj='post' pk=post.pk %}">
+                <img class="pic" src="{{post.img.url}}" alt="">
+            </a>
+            {% endif %}
+            
+            <!--Button panel-->
+            <div class="button-panel">
+                <a class="cat" href="{% url 'category' post.category.name %}">{{post.category}}</a>
+                <span class="messages">{{post.reply_count}}</span>
+                <span class="messages">{{post.total_messages}}</span>
+                <a class="button" href="{% url 'thread' post.pk %}">View thread</a>
+            {% if post.is_flagged %}
+                <p class="button" id="red-button">Flagged</p>
+            {% else %}
+                <a class="button" id="red-button" href="{% url 'flag post' obj='post' pk=post.pk origin=request.get_full_path %}"">Flag this</a>
+            {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="post-box">
+            <p>No posts found at the moment.</p>
+        </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

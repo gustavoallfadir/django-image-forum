@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Content not found
+{% endblock %}
+
+{% block content %}
+<div class="wide-container">
+    <div class="error">
+        <h2>404 Content not found</h2>
+        <p>The content you've requested wasn't found. Please verify your URL</p>
+       
+        {%load static %}
+        <img class="error-img" src="{% static 'media/error404.png' %}" alt="">
+    </div>
+</div>
+
+{% endblock %}

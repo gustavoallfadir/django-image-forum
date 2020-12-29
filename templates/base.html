@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    <!--CSS Styles-->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!--Scripts-->
+    <script src="{% static 'js/script.js' %}"></script>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <header>
+        <h1>My image posting forum</h1>
+        
+        <nav>
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'rules' %}">Rules</a>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact</a>
+            </li>
+
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'my profile' %}">My account</a>
+            </li>
+
+            <li>
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            
+            <li>
+                <span class="username">Loged as @{{user.username}}</span>
+            </li>
+            
+            <li>
+                <a class="post-button" href="{% url 'create post' %}">Post something now!</a>
+            </li>
+
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+            
+            <li>
+                <a href="{% url 'signup' %}">Sign-up</a>
+            </li>
+            {% endif %}
+        </nav>
+    </header>    
+
+    {% block form %}
+
+    {% endblock %}
+
+    <section class="main">
+    {% block content %}
+
+    
+    {% endblock %}
+    </section>
+    
+    <footer>
+        <div class="footer-wrap">
+            <p><a href="{% url 'about' %}">About this site</a></p>        
+            <p><a href="{% url 'contact' %}">Contact us</a></p>
+        </div>
+
+        <div class="footer-wrap" style="text-align: center;">
+            <p>Created by AllfaSoft on 2020</p>
+            <p>allfasoft@yahoo.com</p>
+        </div>
+        
+        <div class="footer-wrap">
+            <p>
+            <a href="https://www.youtube.com/channel/UC9JWfhPecslRLm-CB2nX8dg"
+            target="_blank" 
+            rel="noopener noreferrer"">
+            YouTube channel
+            </a>
+            </p>
+
+            <p>
+            <a href="https://github.com/gustavoallfadir/django-4chan-forum"
+            target="_blank" 
+            rel="noopener noreferrer"">
+            GitHub project
+            </a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

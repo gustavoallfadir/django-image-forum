@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home - image posting forum
+{% endblock %}
+
+{% block content %}
+
+<div class="title">
+    <h2>Home</h2>
+    <p>Welcome to our forums! Feel free to explore our categories and take part of the conversation. Remember to read our 
+        <a href="{% url 'rules' %}">rules</a> 
+        before posting so we don't get in trouble.</p>
+</div>
+
+<div class="cat-container">
+    <h3>Categories:</h3>
+    <ul>
+        {% for cat in categories %}
+        <li>
+            <a href="{% url 'category' cat.name %}">{{cat.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<h2 class="list-title">Recent posts</h2>
+
+<div class="post-list">
+
+    {% for post in recent %}
+        <div class="post-box">
+            <h3>{{post.title}}</h3>
+            <p>Author: {{post.author}} on {{post.created}}</p>
+            <p>{{post.content}}</p>
+            {% if post.img %}
+            <a href="{% url 'full size img' obj='post' pk=post.pk %}">
+                <img class="pic" src="{{post.img.url}}" alt="">
+            </a>
+            {% endif %}
+            <div class="button-panel">
+                <a class="cat" href="{% url 'category' post.category.name %}">{{post.category}}</a>
+                <span class="messages">{{post.reply_count}}</span>
+                <span class="messages">{{post.total_messages}}</span>
+                <a class="button" href="{% url 'thread' post.pk %}">View thread</a>
+                {% if post.is_flagged %}
+                    <p class="button" id="red-button">Flagged</p>
+                {% else %}
+                    <a class="button" id="red-button" href="{% url 'flag post' obj='post' pk=post.pk origin=request.get_full_path %}"">Flag this</a>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No recent posts found at the moment</p>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
